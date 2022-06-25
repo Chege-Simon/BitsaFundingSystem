@@ -1,0 +1,91 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.Users.IndexModel
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header row">
+        <h3 class="card-title col-md-10">Users</h3>
+        <span class="col-md-2">
+            @*<a class="btn btn-success" asp-page="Create">New Project</a>*@
+        </span>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="datatable" class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].First_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].Middle_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].Last_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].Role)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].Balance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BitsaFundingSystemUsers[0].WalletId)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.BitsaFundingSystemUsers)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.First_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Middle_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WalletId)
+                    </td>
+                    <td>
+                        <a asp-page="./Details" asp-route-email="@item.Email">Details</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

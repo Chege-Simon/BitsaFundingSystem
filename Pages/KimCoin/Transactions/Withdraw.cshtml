@@ -1,0 +1,81 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.Transactions.WithdrawModel
+@{
+    ViewData["Title"] = "Withdraw";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Withdraw From Wallet</div>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Amount" class="control-label"></label>
+                        <input asp-for="Input.Amount" class="form-control" />
+                        <span asp-validation-for="Input.Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Phone_Number" class="control-label">Mpesa Phone Number</label>
+                        <input asp-for="Input.Phone_Number" class="form-control" disabled/>
+                        <span asp-validation-for="Input.Phone_Number" class="text-danger"></span>
+                    </div>
+                    @if (Model.StatusMessage != null)
+                    {
+                        <div class="text-danger">@Model.StatusMessage</div>
+                    }
+                    <div>
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#personal">Personal Wallet</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#project">Project Wallets</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div id="personal" class="tab-pane fade in active">
+                            <div class="form-group">
+                                <label asp-for="Input.PersonalWalletId" class="control-label">Wallet</label>
+
+                                <select asp-for="Input.PersonalWalletId" class="form-control">
+                                    <option value="">--Clear Selection--</option>
+                                    <option value="@Model.Input.PersonalWalletId">@Model.Input.PersonalWalletId</option>
+                                </select>
+                                <span asp-validation-for="Input.PersonalWalletId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div id="project" class="tab-pane fade">
+                            <div class="form-group">
+                                <label asp-for="Input.ProjectWalletId" class="control-label">Wallet</label>
+                                <select asp-for="Input.ProjectWalletId" class="form-control" asp-items="ViewBag.ProjectWallets">
+                                    @*<option value="">--Select Project Wallet--</option>*@
+                                    <option value="">--Clear Selection--</option>
+                                </select>
+                                <span asp-validation-for="Input.ProjectWalletId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Action" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+@*<div>
+    <a asp-page="Blockchain">Back to Blockchain</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+

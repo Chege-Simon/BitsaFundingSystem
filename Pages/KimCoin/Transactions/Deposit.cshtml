@@ -1,0 +1,54 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.Transactions.DepositeModel
+@{
+    ViewData["Title"] = "Deposit";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<h4 class="page-title">Deposit</h4>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Deposit To Wallet</div>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Amount" class="control-label">Amount</label>
+                        <input asp-for="Input.Amount" class="form-control"/>
+                        <span asp-validation-for="Input.Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Phone_Number" class="control-label">Mpesa Phone Number</label>
+                        <input asp-for="Input.Phone_Number" class="form-control"/>
+                        <span asp-validation-for="Input.Phone_Number" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.WalletId" class="control-label">Your Wallet Id</label>
+                        <input asp-for="Input.WalletId" class="form-control" disabled />
+                        <span asp-validation-for="Input.WalletId" class="text-danger"></span>
+                    </div>
+                    <div class="card-action">
+                        <input type="submit" value="Action" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+@*<div>
+    <a asp-page="Blockchain">Back to Blockchain</a>
+</div>*@
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+
+
+
+
+
+

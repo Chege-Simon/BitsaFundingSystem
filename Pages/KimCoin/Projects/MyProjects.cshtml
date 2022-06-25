@@ -1,0 +1,95 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.Projects.MyProjectsModel
+@{
+    ViewData["Title"] = "MyProjects";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header row">
+        <h3 class="card-title col-md-10">My Projects</h3>
+        <span class="col-md-2">
+            <a class="btn btn-success" asp-page="Create">New Project</a>
+        </span>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="datatable" >
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].GitHubLink)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].Purpose)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].OwnerId)
+                    </th>
+                    <th>
+                        Wallet
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].Created_At)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Project[0].Updated_At)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Project)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GitHubLink)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Purpose)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OwnerId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WalletId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created_At)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Updated_At)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                            @if (Model.TheUser.Role == "Admin")
+                            {
+                                <a asp-page="./Delete" asp-route-id="@item.Id"> | Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+}

@@ -1,0 +1,151 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.Projects.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+    decimal Contributions = 0;
+    decimal Withdrawals = 0;
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Projects Detail</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <div class="info-box bg-light">
+                            <div class="info-box-content">
+                                <span class="info-box-text text-center text-muted">Total Contributions</span>
+                                <span class="info-box-number text-center text-muted mb-0">
+
+                                    @foreach (var block in Model.TheBlockChain.Chain)
+                                    {
+                                        foreach (var Transaction in block.Transactions)
+                                        {
+                                            if (Transaction.ToAddress == Model.Project.WalletId)
+                                            {
+                                                Contributions += Transaction.Amount;
+                                                @Html.DisplayFor(modelItem => Contributions)
+                                            }
+                                        }
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="info-box bg-light">
+                            <div class="info-box-content">
+                                <span class="info-box-text text-center text-muted">Amount</span>
+                                <span class="info-box-number text-center text-muted mb-0">@Html.DisplayFor(model => model.Project.Balance)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="info-box bg-light">
+                            <div class="info-box-content">
+                                <span class="info-box-text text-center text-muted">Withdrawn Amount</span>
+                                <span class="info-box-number text-center text-muted mb-0">
+                                    @foreach (var block in Model.TheBlockChain.Chain)
+                                    {
+                                        foreach (var Transaction in block.Transactions)
+                                        {
+                                            if (Transaction.FromAddress == Model.Project.WalletId)
+                                            {
+                                                Withdrawals += Transaction.Amount;
+                                                @Html.DisplayFor(modelItem => Withdrawals)
+                                            }
+                                        }
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Recent Activity</h4>
+                        @foreach (var block in Model.TheBlockChain.Chain)
+                        {
+                            foreach (var Transaction in block.Transactions)
+                            {
+                                if (Transaction.ToAddress == Model.Project.WalletId || Transaction.FromAddress == Model.Project.WalletId)
+                                {
+                                <div class="post">
+                                    <div class="user-block">
+                                        <div class="username">
+                                            <div class="text-primary">To: @Transaction.ToAddress </div>
+                                            <div class="text-primary">From: @Transaction.FromAddress</div>
+                                        </div>
+                                        <span class="description">Contributed "@@" - @block.TimeStamp</span>
+                                    </div>
+                                    <p>
+                                        @if (@Transaction.ToAddress == @Model.Project.WalletId)
+                                        {
+                                            <span>Ksh </span> @Transaction.Amount <span> - was contributed to this Project.</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Ksh </span> @Transaction.Amount <span> -  was withdrawn from this Project.</span>
+                                        }
+                                    </p>
+                                    <p>
+                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i>@block.Hash</a>
+                                    </p>
+                                </div>
+                                }
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                <h3 class="text-primary"><i class="fas fa-paint-brush"></i> @Model.Project.Title</h3>
+                <p class="text-muted">@Model.Project.Description</p>
+                <br>
+                <div class="text-muted">
+                    <p class="text-sm">
+                        Owner
+                        <b class="d-block">@Model.Project.OwnerId</b>
+                    </p>
+                    <p class="text-sm">
+                        Project Wallet
+                        <b class="d-block">@Model.Project.WalletId</b>
+                    </p>
+                    <p class="text-sm">
+                        Project GitHub Link
+                        <b class="d-block"><a href="@Model.Project.GitHubLink" target="_blank">@Model.Project.GitHubLink</a></b>
+                    </p>
+                    <p class="text-sm">
+                        Created At
+                        <b class="d-block">@Model.Project.Created_At</b>
+                    </p>
+                    <p class="text-sm">
+                        Updated At
+                        <b class="d-block">@Model.Project.Updated_At</b>
+                    </p>
+                </div>
+                <div class="text-center mt-5 mb-3">
+                    <a class="btn btn-sm btn-success" asp-page="../Transactions/Contribute" asp-route-WalletId="@Model.Project.WalletId">Contribute</a>
+                    <a class="btn btn-sm btn-primary" asp-page="./Edit" asp-route-id="@Model.Project.Id">Edit</a>
+                    <a class="btn btn-sm btn-warning" asp-page="./Projects">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->

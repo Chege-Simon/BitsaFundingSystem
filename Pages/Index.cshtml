@@ -1,0 +1,64 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Dashboard</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-bold h3">Top Projects</div>
+        @foreach (var project in Model.TopProjects)
+        {
+
+            <div class="card col-md-3 m-5">
+                <div class="card-header text-white bg-dark">
+                    <h5 class="card-title"><span class="text-bold">Title: </span>@project.Title</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><span class="text-bold">Description: </span>@project.Description</p>
+                    <hr />
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="text-bold">Owner: </span>@project.OwnerId</li>
+                        <li class="list-group-item"><span class="text-bold">Github Link: </span>@project.GitHubLink</li>
+                        <li class="list-group-item"><span class="text-bold">Balance: </span>@project.Balance</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="card-link btn btn-primary " asp-page="./KimCoin/Projects/Details" asp-route-id="@project.Id">Details</a>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-bold h3">Recently Created Projects</div>
+        @foreach (var project in Model.RecentProject)
+        {
+            <div class="card col-md-3 m-5">
+                <div class="card-header text-white bg-dark">
+                    <h5 class="card-title"><span class="text-bold">Title: </span>@project.Title</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><span class="text-bold">Description: </span>@project.Description</p>
+                    <hr />
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="text-bold">Owner: </span>@project.OwnerId</li>
+                        <li class="list-group-item"><span class="text-bold">Github Link: </span>@project.GitHubLink</li>
+                        <li class="list-group-item"><span class="text-bold">Balance: </span>@project.Balance</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="card-link btn btn-primary " asp-page="./KimCoin/Projects/Details" asp-route-id="@project.Id">Details</a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

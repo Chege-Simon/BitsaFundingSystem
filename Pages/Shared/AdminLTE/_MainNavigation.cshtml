@@ -1,0 +1,140 @@
+﻿@using static Helpers.NavigationIndicatorHelper;
+@{
+    string CurrentURL = @Context.Request.Path;
+    string nav = "";
+    string[] test = CurrentURL.Split("/");
+    switch (CurrentURL.Split("/").Length > 2 ? CurrentURL.Split("/")[3] : CurrentURL.Split("/")[1])
+    {
+        case "Dashboard":
+            nav = "Dashboard";
+            break;
+        case "MyProjects":
+            nav = "MyProjects";
+            break;
+        case "Projects":
+            nav = "Projects";
+            break;
+        case "Users":
+            nav = "Users";
+            break;
+        case "Contribution":
+            nav = "Contribution";
+            break;
+        case "Blockchain":
+            nav = "Blockchain";
+            break;
+        case "Deposit":
+            nav = "Deposit";
+            break;
+        case "Withdraw":
+            nav = "Withdraw";
+            break;
+        default:
+            nav = "Dashboard";
+            break;
+    }
+
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a class="brand-link" asp-area="" asp-page="/Index">
+        <span class="brand-text font-weight-light">Dashboard</span>
+    </a>
+    <div class="sidebar">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="nav-item">
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">
+                        <i class="nav-icon fas fa-user fa-fw mr-3 ml-1"></i>
+                        <span>
+                            @User.Identity.Name
+                        </span>
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                    <a href="#" class="d-block">Hi, Visitor</a>
+                </div>
+            </div>
+        }
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="Dashboard"? "active" : "")" asp-area="" asp-page="/Index">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="MyProjects"? "active" : "")" asp-area="" asp-page="/KimCoin/Projects/MyProjects">
+                            <i class="nav-icon fa fa-code"></i>
+                            <p>
+                                My Projects
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="Projects"? "active" : "")" asp-area="" asp-page="/KimCoin/Projects/Projects">
+                            <i class="nav-icon fa fa-code-branch"></i>
+                            <p>
+                                All Projects
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="Users"? "active" : "")" asp-area="" asp-page="/KimCoin/Users/Users">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                Users
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="Contribution"? "active" : "")" asp-area="" asp-page="/KimCoin/Transactions/Contribute">
+                            <i class="nav-icon fas fa-lock"></i>
+                            <p>
+                                Contribute
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="Blockchain"? "active" : "")" asp-area="" asp-page="/KimCoin/Transactions/Blockchain">
+                            <i class="nav-icon fa fa-link"></i>
+                            <p>
+                                Block Chain
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link @(nav=="Deposit"? "active" : "")" asp-area="" asp-page="/KimCoin/Transactions/Deposit">
+                            <i class="nav-icon fa fa-credit-card"></i>
+                            <p>
+                                Deposit
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item @(nav=="Withdraw"? "active" : "")">
+                        <a class="nav-link" asp-area="" asp-page="/KimCoin/Transactions/Withdraw">
+                            <i class="nav-icon fa fa-university"></i>
+                            <p>
+                                Withdraw
+                            </p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("Admin");}
+}

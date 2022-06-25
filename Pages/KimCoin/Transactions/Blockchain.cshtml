@@ -1,0 +1,114 @@
+﻿@page
+@model BlockchainModel
+@{
+    ViewData["Title"] = "Blockchain";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<style>
+    .hidden{
+        display:none;
+    }
+</style>
+<div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Block Chain</div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-responsive" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Index
+                            </th>
+                            <th>
+                                Block Hash
+                            </th>
+                            <th>
+                                Previous Block Hash
+                            </th>
+                            <th>
+                                TimeStamp
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var block in Model.Chain.Chain.Reverse())
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => block.Index)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => block.Hash)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => block.PreviousHash)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => block.TimeStamp)
+                            </td>
+                            <td>
+                                <button onclick="showTransactions(@Model.Chain.Chain.Count -1 - @block.Index)" class="btn btn-secondary"data-toggle="tooltip" data-placement="top" title="Show Transactions"><i class="fa fa-angle-double-down"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hidden transactions">
+                            <td colspan="5" >
+                                <div class="card collapsed-card" id="transaction">
+                                    <div class="card-header border-0">
+                                        <p class="card-title">
+                                            Transactions
+                                        </p>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                            <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: none;">
+                                        @foreach (var Transaction in block.Transactions)
+                                        {
+                                        <p>
+                                        Sent To: @Transaction.ToAddress
+                                        </p>
+                                        <p>
+                                        Recieve: @Transaction.FromAddress
+                                        </p>
+                                        <p>
+                                         Amount Transacted: Ksh @Transaction.Amount
+                                        </p>                                  }
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+<script>
+    function showTransactions(i) {
+        var index = i;
+        var x = document.getElementsByClassName("transactions")[index];
+        if (!x.classList.contains("hidden")) {
+            x.classList.add("hidden");
+        } else {
+            x.classList.remove("hidden");
+        }
+    }
+
+</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

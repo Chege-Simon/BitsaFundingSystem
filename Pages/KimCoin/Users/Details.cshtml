@@ -1,0 +1,97 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.Users.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-header row">
+        <h3 class="card-title col-md-10">User Details</h3>
+        <span class="col-md-2">
+        </span>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="datatable">
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.First_Name)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.First_Name)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Middle_Name)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Middle_Name)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Middle_Name)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Middle_Name)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Last_Name)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Last_Name)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Balance)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Balance)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Role)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Role)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.WalletId)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.WalletId)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Created_At)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Created_At)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BitsaFundingSystemUser.Updated_At)
+                </th>
+                <td class="col-sm-6">
+                    @Html.DisplayFor(model => model.BitsaFundingSystemUser.Updated_At)
+                </td>
+            </tr>
+        </table>
+    </div>
+    @*<div class="row">
+        <div class="col-md-9"></div>
+        <a asp-page="./Edit" asp-route-id="@Model.BitsaFundingSystemUser.Id" class="col-md-2 btn btn-secondary m-2">Edit</a>
+    </div>*@
+</div>

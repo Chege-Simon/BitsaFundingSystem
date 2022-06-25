@@ -1,0 +1,32 @@
+﻿@page
+@model BitsaFundingSystem.Pages.KimCoin.ConnectModel
+@{
+    ViewData["Title"] = "Connect";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<br />
+@foreach (var server in Model.ConnectedServers)
+{
+    <p>@server</p>
+}
+
+<br />
+@foreach (var block in Model.Chain.Chain)
+{
+    <p>**********************************************</p>
+    @block.Index
+    @block.Hash
+    @block.PreviousHash
+    @block.TimeStamp
+    @foreach (var transaction in block.Transactions)
+    {
+        <p>>>>></p>
+        @transaction.FromAddress
+        @transaction.ToAddress
+        @transaction.Amount
+    }
+
+    <p>**********************************************</p>
+}
+
+<br />
